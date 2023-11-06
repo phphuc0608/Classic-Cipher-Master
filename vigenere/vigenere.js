@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
           inputText = event.target.result;
           if (encryptButton.classList.contains('active')) {
             const encryptedText = vigenereEncrypt(inputText, keyword);
-            downloadFile(encryptedText, 'ketQuaVigenere.txt');
+            downloadFile(encryptedText, 'maHoaVigenere.txt');
           } else if (decryptButton.classList.contains('active')) {
             const decryptedText = vigenereDecrypt(inputText, keyword);
             downloadFile(decryptedText, 'giaiMaVigenere.txt');
