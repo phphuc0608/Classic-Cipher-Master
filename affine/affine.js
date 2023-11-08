@@ -126,8 +126,6 @@ document.addEventListener('DOMContentLoaded', function () {
     return decryptedText;
   }
 
-
-
   function downloadFile(content, filename) {
     const blob = new Blob([content], { type: 'text/plain' });
     const a = document.createElement('a');
