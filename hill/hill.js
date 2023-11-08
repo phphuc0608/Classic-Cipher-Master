@@ -92,9 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
       [keyMatrix[2], keyMatrix[3]]
     ];
 
-
     const det = (matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]) % 26;
-
 
     let multiplicativeInverse = -1;
     for (let i = 0; i < 26; i++) {
@@ -104,20 +102,16 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-
     if (multiplicativeInverse === -1) {
       return "Không thể giải mã với keyMatrix này";
     }
-
 
     const inverseMatrix = [
       [(matrix[1][1] * multiplicativeInverse) % 26, (-matrix[0][1] * multiplicativeInverse + 26) % 26],
       [(-matrix[1][0] * multiplicativeInverse + 26) % 26, (matrix[0][0] * multiplicativeInverse) % 26]
     ];
 
-
     const textPairs = encryptedText.match(/.{2}/g);
-
 
     const decryptedPairs = textPairs.map(pair => {
       const char1 = pair.charCodeAt(0) - 65;
@@ -131,8 +125,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     return decryptedPairs.join('');
   }
-
-
 
   function modInverse(a, m) {
     for (let x = 1; x < m; x++) {

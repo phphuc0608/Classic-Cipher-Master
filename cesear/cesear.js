@@ -4,9 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const decryptButton = document.getElementById('decryptButton');
 
   cesearForm.addEventListener('submit', function (event) {
-    event.preventDefault(); // Ngăn chặn nạp lại trang sau khi submit
+    event.preventDefault();
 
-    // Lấy giá trị từ các input
     const plainTextInput = document.querySelector('.form-input[type="text"]');
     const fileInput = document.querySelector('.form-input[type="file"]');
     const keyInput = document.querySelector('.form-input[type="text"][style="width: 100%"]');
@@ -56,13 +55,13 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function cesearEncrypt(plaintext, key) {
-    key = parseInt(key); // Chuyển đổi key thành số nguyên
+    key = parseInt(key);
 
     if (isNaN(key)) {
       throw new Error('Key phải là một số nguyên.');
     }
 
-    const alphabet = 'abcdefghijklmnopqrstuvwxyz'; // Bảng chữ cái
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
     let encryptedText = '';
 
     for (let i = 0; i < plaintext.length; i++) {
@@ -76,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         encryptedText += isUpperCase ? encryptedChar.toUpperCase() : encryptedChar;
       } else {
-        encryptedText += char; // Giữ nguyên ký tự không phải chữ cái
+        encryptedText += char;
       }
     }
 
@@ -84,13 +83,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function cesearDecrypt(ciphertext, key) {
-    key = parseInt(key); // Chuyển đổi key thành số nguyên
+    key = parseInt(key);
 
     if (isNaN(key)) {
       throw new Error('Key phải là một số nguyên.');
     }
 
-    const alphabet = 'abcdefghijklmnopqrstuvwxyz'; // Bảng chữ cái
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
     let decryptedText = '';
 
     for (let i = 0; i < ciphertext.length; i++) {
@@ -99,12 +98,12 @@ document.addEventListener('DOMContentLoaded', function () {
       if (alphabet.includes(char.toLowerCase())) {
         const isUpperCase = char === char.toUpperCase();
         const charIndex = alphabet.indexOf(char.toLowerCase());
-        const decryptedIndex = (charIndex - key + 26) % 26; // Đảm bảo số không âm
+        const decryptedIndex = (charIndex - key + 26) % 26;
         const decryptedChar = alphabet.charAt(decryptedIndex);
 
         decryptedText += isUpperCase ? decryptedChar.toUpperCase() : decryptedChar;
       } else {
-        decryptedText += char; // Giữ nguyên ký tự không phải chữ cái
+        decryptedText += char;
       }
     }
 
