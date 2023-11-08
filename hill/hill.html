@@ -1,11 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kodchasan:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./hill.js"></script>
   <title>Hill</title>
 </head>
+
 <body>
-  
+  <header class="header">
+    <nav class="navbar">
+      <a href="../affine/affine.html"><span>Affine</span></a>
+      <a href="../cesear/cesear.html"><span>Cesear</span></a>
+      <a href="./hill.html"><span>Hill</span></a>
+      <a href="../vigenere/vigenere.html"><span>Vigenere</span></a>
+    </nav>
+  </header>
+  <main class="main">
+    <div class="form-container container">
+      <form class="row no-gutters p-3" id="hillForm">
+        <div class="col-md-12 text-center">
+          <h2>Hill</h2>
+        </div>
+        <div class="col-md-6 d-flex flex-column">
+          <input class="form-input" type="text" placeholder="Nhập plain text hoặc cipher text">
+          <input class="form-input" type="file" accept=".txt" placeholder="Tải file lên">
+        </div>
+        <div class="col-md-6 d-flex flex-column">
+          <input type="text" class="form-input" style="width: 100%" id="keyMatrixInput" placeholder="Nhập keyMatrix 2x2 ">
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <button class="form-button" type="submit" id="encryptButton">Mã hóa</button>
+            <button class="form-button" type="submit" id="decryptButton">Giải mã</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
 </body>
+<!-- <script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const hillForm = document.getElementById('hillForm');
+      const encryptButton = document.getElementById('encryptButton');
+      const decryptButton = document.getElementById('decryptButton');
+
+      hillForm.addEventListener('submit', function (event) {
+        event.preventDefault(); // Ngăn chặn nạp lại trang sau khi submit
+
+        // Lấy giá trị từ các input
+        const plainTextInput = document.querySelector('.form-input[type="text"]');
+        const fileInput = document.querySelector('.form-input[type="file"]');
+        const keyMatrixInput = document.getElementById('keyMatrixInput');
+
+        const plaintext = plainTextInput.value;
+        const keyMatrix = keyMatrixInput.value;
+
+
+        // Chia chuỗi keyMatrix thành mảng các giá trị sử dụng dấu phẩy làm phân tách
+        const keyMatrixArray = keyMatrix.split(",").map(value => parseInt(value.trim()));
+
+        if ((plaintext || (fileInput.files.length > 0 && fileInput.files[0])) && keyMatrixArray.length === 4) {
+          let inputText = plaintext;
+
+          if (fileInput.files.length > 0) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              inputText = event.target.result;
+              if (encryptButton.classList.contains('active')) {
+                const encryptedText = hill2x2Encrypt(inputText, keyMatrix);
+                downloadFile(encryptedText, 'maHoaHill.txt');
+              } else if (decryptButton.classList.contains('active')) {
+                const decryptedText = hill2x2Decrypt(inputText, keyMatrix);
+                downloadFile(decryptedText, 'giaiMaHill.txt');
+              }
+
+            };
+
+            reader.readAsText(fileInput.files[0]);
+          } else {
+            if (encryptButton.classList.contains('active')) {
+              const encryptedText = hill2x2Encrypt(inputText, keyMatrix);
+              downloadFile(encryptedText, 'maHoaHill.txt');
+            } else if (decryptButton.classList.contains('active')) {
+              const decryptedText = hill2x2Decrypt(inputText, keyMatrix);
+              downloadFile(decryptedText, 'giaiMaHill.txt');
+            }
+
+          }
+        } else {
+          alert('Vui lòng nhập plaintext hoặc tải file và nhập keyMatrix trước khi thực hiện.');
+        }
+      });
+
+      encryptButton.addEventListener('click', function () {
+        encryptButton.classList.add('active');
+        decryptButton.classList.remove('active');
+      });
+
+      decryptButton.addEventListener('click', function () {
+        encryptButton.classList.remove('active');
+        decryptButton.classList.add('active');
+      });
+
+      function hill2x2Encrypt(plainText, key) {
+        // Chuyển keyMatrix thành ma trận 2x2
+        const keyMatrix = key.split(',').map(Number);
+        const matrix = [
+          [keyMatrix[0], keyMatrix[1]],
+          [keyMatrix[2], keyMatrix[3]]
+        ];
+
+        // Chuyển plainText thành các cặp ký tự (theo thứ tự)
+        const textPairs = plainText.match(/.{2}/g);
+
+        // Mã hóa từng cặp ký tự
+        const encryptedPairs = textPairs.map(pair => {
+          const char1 = pair.charCodeAt(0) - 65; // Chuyển A->0, B->1, ..., Z->25
+          const char2 = pair.charCodeAt(1) - 65;
+
+          const result1 = (char1 * matrix[0][0] + char2 * matrix[1][0]) % 26;
+          const result2 = (char1 * matrix[0][1] + char2 * matrix[1][1]) % 26;
+
+          return String.fromCharCode(result1 + 65, result2 + 65); // Chuyển lại về ký tự
+        });
+
+        return encryptedPairs.join(''); // Kết hợp các cặp ký tự đã mã hóa
+      }
+
+      function hill2x2Decrypt(cipherText, key) {
+
+      }
+
+      function downloadFile(content, filename) {
+        const blob = new Blob([content], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        a.click();
+      }
+    });
+
+</script> -->
 </html>
