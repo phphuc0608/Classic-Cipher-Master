@@ -44,9 +44,7 @@ body {
 }
 .main {
   min-height: 100vh;
-  background: url('/Classic-Cipher-Master/imgs/background.jpeg') no-repeat;
-  background-size: cover;
-  background-position: center;
+  background: red;
 }
 
 .home {
