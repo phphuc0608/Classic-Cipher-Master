@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const encryptButton = document.getElementById('encryptButton');
   const decryptButton = document.getElementById('decryptButton');
 
+  let encryptFunction = hill2x2Encrypt;
+  let decryptFunction = hill2x2Decrypt;
+
+
   hillForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
@@ -69,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
       [keyMatrix[2], keyMatrix[3]]
     ];
 
-    const textPairs = plainText.match(/.{2}/g);
+    const textPairs = plainText.toUpperCase().match(/.{2}/g);
 
     const encryptedPairs = textPairs.map(pair => {
       const char1 = pair.charCodeAt(0) - 65;
@@ -111,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
       [(-matrix[1][0] * multiplicativeInverse + 26) % 26, (matrix[0][0] * multiplicativeInverse) % 26]
     ];
 
-    const textPairs = encryptedText.match(/.{2}/g);
+    const textPairs = encryptedText.toUpperCase().match(/.{2}/g);
 
     const decryptedPairs = textPairs.map(pair => {
       const char1 = pair.charCodeAt(0) - 65;
