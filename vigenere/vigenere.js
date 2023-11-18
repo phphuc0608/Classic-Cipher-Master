@@ -56,52 +56,39 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function vigenereEncrypt(plaintext, keyword) {
-    if (!plaintext || !keyword) {
-      return 'Vui lòng nhập plaintext và keyword.';
-    }
-
-    plaintext = plaintext.toUpperCase();
-    keyword = keyword.toUpperCase();
-    const plaintextLength = plaintext.length;
-    const keywordLength = keyword.length;
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let encryptedText = '';
 
-    for (let i = 0; i < plaintextLength; i++) {
-      const plaintextChar = plaintext[i];
-      if (plaintextChar >= 'A' && plaintextChar <= 'Z') {
-        const plaintextCharCode = plaintextChar.charCodeAt(0) - 'A'.charCodeAt(0);
-        const keywordChar = keyword[i % keywordLength];
-        const keywordCharCode = keywordChar.charCodeAt(0) - 'A'.charCodeAt(0);
-        const encryptedCharCode = (plaintextCharCode + keywordCharCode) % 26 + 'A'.charCodeAt(0);
-        encryptedText += String.fromCharCode(encryptedCharCode);
+    for (let i = 0; i < plaintext.length; i++) {
+      const char = plaintext[i].toUpperCase();
+      if (alphabet.includes(char)) {
+        const plaintextIndex = alphabet.indexOf(char);
+        const keywordChar = keyword[i % keyword.length].toUpperCase();
+        const keywordIndex = alphabet.indexOf(keywordChar);
+        const encryptedChar = alphabet[(plaintextIndex + keywordIndex) % alphabet.length];
+        encryptedText += encryptedChar;
       } else {
-        encryptedText += plaintextChar;
+        encryptedText += char;
       }
     }
 
     return encryptedText;
   }
-  function vigenereDecrypt(ciphertext, keyword) {
-    if (!ciphertext || !keyword) {
-      return 'Vui lòng nhập ciphertext và keyword.';
-    }
-
-    ciphertext = ciphertext.toUpperCase();
-    keyword = keyword.toUpperCase();
-    const ciphertextLength = ciphertext.length;
-    const keywordLength = keyword.length;
+  
+  function vigenereDecrypt(encryptedText, keyword) {
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let decryptedText = '';
 
-    for (let i = 0; i < ciphertextLength; i++) {
-      const ciphertextChar = ciphertext[i];
-      if (ciphertextChar >= 'A' && ciphertextChar <= 'Z') {
-        const ciphertextCharCode = ciphertextChar.charCodeAt(0) - 'A'.charCodeAt(0);
-        const keywordChar = keyword[i % keywordLength];
-        const keywordCharCode = keywordChar.charCodeAt(0) - 'A'.charCodeAt(0);
-        const decryptedCharCode = (ciphertextCharCode - keywordCharCode + 26) % 26 + 'A'.charCodeAt(0);
-        decryptedText += String.fromCharCode(decryptedCharCode);
+    for (let i = 0; i < encryptedText.length; i++) {
+      const char = encryptedText[i].toUpperCase();
+      if (alphabet.includes(char)) {
+        const encryptedTextIndex = alphabet.indexOf(char);
+        const keywordChar = keyword[i % keyword.length].toUpperCase();
+        const keywordIndex = alphabet.indexOf(keywordChar);
+        const decryptedChar = alphabet[(encryptedTextIndex - keywordIndex + alphabet.length) % alphabet.length];
+        decryptedText += decryptedChar;
       } else {
-        decryptedText += ciphertextChar;
+        decryptedText += char;
       }
     }
 
