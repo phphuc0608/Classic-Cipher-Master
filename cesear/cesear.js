@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const cesearForm = document.getElementById('cesearForm');
   const encryptButton = document.getElementById('encryptButton');
   const decryptButton = document.getElementById('decryptButton');
+  const resultInput = document.getElementById('ket_qua');
 
   cesearForm.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -33,10 +34,10 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         if (encryptButton.classList.contains('active')) {
           const encryptedText = cesearEncrypt(inputText, key);
-          downloadFile(encryptedText, 'maHoaCesear.txt');
+          resultInput.value = encryptedText;
         } else if (decryptButton.classList.contains('active')) {
           const decryptedText = cesearDecrypt(inputText, key);
-          downloadFile(decryptedText, 'giaiMaCesear.txt');
+          resultInput.value = decryptedText;
         }
       }
     } else {

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const vigenereForm = document.getElementById('vigenereForm');
   const encryptButton = document.getElementById('encryptButton');
   const decryptButton = document.getElementById('decryptButton');
+  const resultElement = document.getElementById('ket_qua');
 
   vigenereForm.addEventListener('submit', function (event) {
     event.preventDefault(); // Ngăn chặn nạp lại trang sau khi submit
@@ -34,10 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         if (encryptButton.classList.contains('active')) {
           const encryptedText = vigenereEncrypt(inputText, keyword);
-          downloadFile(encryptedText, 'maHoaVigenere.txt');
+          resultElement.value = encryptedText;
         } else if (decryptButton.classList.contains('active')) {
           const decryptedText = vigenereDecrypt(inputText, keyword);
-          downloadFile(decryptedText, 'giaiMaVigenere.txt');
+          resultElement.value = decryptedText;
         }
       }
     } else {

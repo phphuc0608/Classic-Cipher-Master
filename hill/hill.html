@@ -37,6 +37,7 @@
         </div>
         <div class="col-md-6 d-flex flex-column">
           <input type="text" class="form-input" style="width: 100%" id="keyMatrixInput" placeholder="Nhập keyMatrix 2x2 (ví dụ: 3, 3, 2, 5) ">
+          <input class="form-input" type="text" id="ket_qua" placeholder="Kết quả" style="width: 100%">
         </div>
         <div class="col-md-12">
           <div class="form-group">
@@ -48,107 +49,4 @@
     </div>
   </main>
 </body>
-<!-- <script>
-  document.addEventListener('DOMContentLoaded', function () {
-      const hillForm = document.getElementById('hillForm');
-      const encryptButton = document.getElementById('encryptButton');
-      const decryptButton = document.getElementById('decryptButton');
-
-      hillForm.addEventListener('submit', function (event) {
-        event.preventDefault(); // Ngăn chặn nạp lại trang sau khi submit
-
-        // Lấy giá trị từ các input
-        const plainTextInput = document.querySelector('.form-input[type="text"]');
-        const fileInput = document.querySelector('.form-input[type="file"]');
-        const keyMatrixInput = document.getElementById('keyMatrixInput');
-
-        const plaintext = plainTextInput.value;
-        const keyMatrix = keyMatrixInput.value;
-
-
-        // Chia chuỗi keyMatrix thành mảng các giá trị sử dụng dấu phẩy làm phân tách
-        const keyMatrixArray = keyMatrix.split(",").map(value => parseInt(value.trim()));
-
-        if ((plaintext || (fileInput.files.length > 0 && fileInput.files[0])) && keyMatrixArray.length === 4) {
-          let inputText = plaintext;
-
-          if (fileInput.files.length > 0) {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-              inputText = event.target.result;
-              if (encryptButton.classList.contains('active')) {
-                const encryptedText = hill2x2Encrypt(inputText, keyMatrix);
-                downloadFile(encryptedText, 'maHoaHill.txt');
-              } else if (decryptButton.classList.contains('active')) {
-                const decryptedText = hill2x2Decrypt(inputText, keyMatrix);
-                downloadFile(decryptedText, 'giaiMaHill.txt');
-              }
-
-            };
-
-            reader.readAsText(fileInput.files[0]);
-          } else {
-            if (encryptButton.classList.contains('active')) {
-              const encryptedText = hill2x2Encrypt(inputText, keyMatrix);
-              downloadFile(encryptedText, 'maHoaHill.txt');
-            } else if (decryptButton.classList.contains('active')) {
-              const decryptedText = hill2x2Decrypt(inputText, keyMatrix);
-              downloadFile(decryptedText, 'giaiMaHill.txt');
-            }
-
-          }
-        } else {
-          alert('Vui lòng nhập plaintext hoặc tải file và nhập keyMatrix trước khi thực hiện.');
-        }
-      });
-
-      encryptButton.addEventListener('click', function () {
-        encryptButton.classList.add('active');
-        decryptButton.classList.remove('active');
-      });
-
-      decryptButton.addEventListener('click', function () {
-        encryptButton.classList.remove('active');
-        decryptButton.classList.add('active');
-      });
-
-      function hill2x2Encrypt(plainText, key) {
-        // Chuyển keyMatrix thành ma trận 2x2
-        const keyMatrix = key.split(',').map(Number);
-        const matrix = [
-          [keyMatrix[0], keyMatrix[1]],
-          [keyMatrix[2], keyMatrix[3]]
-        ];
-
-        // Chuyển plainText thành các cặp ký tự (theo thứ tự)
-        const textPairs = plainText.match(/.{2}/g);
-
-        // Mã hóa từng cặp ký tự
-        const encryptedPairs = textPairs.map(pair => {
-          const char1 = pair.charCodeAt(0) - 65; // Chuyển A->0, B->1, ..., Z->25
-          const char2 = pair.charCodeAt(1) - 65;
-
-          const result1 = (char1 * matrix[0][0] + char2 * matrix[1][0]) % 26;
-          const result2 = (char1 * matrix[0][1] + char2 * matrix[1][1]) % 26;
-
-          return String.fromCharCode(result1 + 65, result2 + 65); // Chuyển lại về ký tự
-        });
-
-        return encryptedPairs.join(''); // Kết hợp các cặp ký tự đã mã hóa
-      }
-
-      function hill2x2Decrypt(cipherText, key) {
-
-      }
-
-      function downloadFile(content, filename) {
-        const blob = new Blob([content], { type: 'text/plain' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = filename;
-        a.click();
-      }
-    });
-
-</script> -->
 </html>

@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const hillForm = document.getElementById('hillForm');
   const encryptButton = document.getElementById('encryptButton');
   const decryptButton = document.getElementById('decryptButton');
-
+  const resultInput = document.getElementById('ket_qua');
   let encryptFunction = hill2x2Encrypt;
   let decryptFunction = hill2x2Decrypt;
 
@@ -43,10 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         if (encryptButton.classList.contains('active')) {
           const encryptedText = hill2x2Encrypt(inputText, keyMatrix);
-          downloadFile(encryptedText, 'maHoaHill.txt');
+          resultInput.value = encryptedText;
         } else if (decryptButton.classList.contains('active')) {
           const decryptedText = hill2x2Decrypt(inputText, keyMatrix);
-          downloadFile(decryptedText, 'giaiMaHill.txt');
+          resultInput.value = decryptedText;
         }
 
       }

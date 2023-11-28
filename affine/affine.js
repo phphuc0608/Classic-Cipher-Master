@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const affineForm = document.getElementById('affineForm');
   const encryptButton = document.getElementById('encryptButton');
   const decryptButton = document.getElementById('decryptButton');
+  const resultInput = document.getElementById('ket_qua');
 
   affineForm.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -33,10 +34,10 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         if (encryptButton.classList.contains('active')) {
           const encryptedText = affineEncrypt(inputText, key);
-          downloadFile(encryptedText, 'maHoaAffine.txt');
+          resultInput.value = encryptedText;
         } else if (decryptButton.classList.contains('active')) {
           const decryptedText = affineDecrypt(inputText, key);
-          downloadFile(decryptedText, 'giaiMaAffine.txt');
+          resultInput.value = decryptedText;
         }
       }
     } else {
