@@ -14,6 +14,21 @@ document.addEventListener('DOMContentLoaded', function () {
     const plaintext = plainTextInput.value;
     const key = keyInput.value;
 
+    const keyParts = key.split(' ').map(Number);
+
+    if (keyParts.length !== 2) {
+      alert('Nhập sai định dạng khóa');
+      return;
+    } else if (keyParts[0] >= keyParts[1]) {
+      alert('Nhập sai định dạng khóa');
+      return;
+    } else if (!Number.isInteger(keyParts[0])) {
+      alert('Khóa phải là cặp số nguyên');
+      return;
+    } else if (!Number.isInteger(keyParts[1])) {
+      alert('Khóa phải là cặp số nguyên');
+      return;
+    }
     if ((plaintext || (fileInput.files.length > 0 && fileInput.files[0])) && key) {
       let inputText = plaintext;
 

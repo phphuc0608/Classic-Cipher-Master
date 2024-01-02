@@ -18,10 +18,24 @@ document.addEventListener('DOMContentLoaded', function () {
     const plaintext = plainTextInput.value;
     const keyMatrix = keyMatrixInput.value;
 
-
-
+    function validateKey(keyMatrixArray) {
+      if (keyMatrixArray.length !== 4) {
+        alert('Khóa bị sai định dạng');
+        return false;
+      }
+      for (let i = 0; i < keyMatrixArray.length; i++) {
+        if (!Number.isInteger(keyMatrixArray[i])) {
+          alert('Khóa cần phải là số nguyên');
+          return false;
+        }
+      }
+      return true;
+    }
+    
     const keyMatrixArray = keyMatrix.split(",").map(value => parseInt(value.trim()));
-
+    if (!validateKey(keyMatrixArray)) {
+      return;
+    }
     if ((plaintext || (fileInput.files.length > 0 && fileInput.files[0])) && keyMatrixArray.length === 4) {
       let inputText = plaintext;
 

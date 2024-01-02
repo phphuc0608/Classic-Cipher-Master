@@ -14,7 +14,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const plaintext = plainTextInput.value;
     const keyword = keywordInput.value;
-
+    function validateKey(key) {
+      const regex = /^[A-Za-z]+$/;
+      if (!regex.test(key)) {
+        alert('Khóa cần phải là chữ cái');
+        return false;
+      }
+      return true;
+    }
+    if (!validateKey(keyword)) {
+      return;
+    }
     if ((plaintext || (fileInput.files.length > 0 && fileInput.files[0])) && keyword) {
       let inputText = plaintext;
 

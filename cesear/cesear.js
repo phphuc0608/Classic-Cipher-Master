@@ -13,7 +13,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const plaintext = plainTextInput.value;
     const key = keyInput.value;
+    const keyParts = key.split(' ').map(Number);
+    const integerCount = keyParts.filter(Number.isInteger).length;
 
+    if (integerCount !== 1) {
+      alert('Khóa chỉ được chứa một số nguyên');
+      return;
+    }
+
+    const keyPart = keyParts[0];
+    if (!Number.isInteger(keyPart)) {
+      alert('Khóa phải là số nguyên');
+      return;
+    }
     if ((plaintext || (fileInput.files.length > 0 && fileInput.files[0])) && key) {
       let inputText = plaintext;
 
