@@ -44,23 +44,23 @@
             <button class="form-button" type="submit" id="encryptButton">Mã hóa</button>
             <button class="form-button" type="submit" id="decryptButton">Giải mã</button>
             <button class="form-button" type="submit" id="clearButton">Làm trống</button>
-            <script>
-              document.getElementById('clearButton').addEventListener('click', function (event) {
-                event.preventDefault(); // Prevent form submission
-
-                // Get all input elements
-                const inputs = document.querySelectorAll('#affineForm .form-input');
-
-                // Clear each input field
-                inputs.forEach(input => {
-                  input.value = '';
-                });
-              });
-            </script>
           </div>
         </div>
       </form>
     </div>
   </main>
+  <script>
+    document.getElementById('clearButton').addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Get all input elements
+      const inputs = document.querySelectorAll('#affineForm .form-input');
+
+      // Clear each input field
+      inputs.forEach(input => {
+        input.value = '';
+      });
+    });
+  </script>
 </body>
 </html>
